@@ -1,0 +1,423 @@
+<html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+      <!--
+      <script src="./resources/jsapi" type="text/javascript"></script>
+      <script type="text/javascript" async>google.load("jquery", "1.3.2");</script>
+     -->
+    
+    <style type="text/css">
+      body {
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight:300;
+        font-size:18px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1100px;
+        text-align: justify;
+      }
+      h1 {
+        font-weight:300;
+      }
+      h2 {
+        font-weight:300;
+      }
+      b, strong {
+        font-weight: 700;
+      }
+      .disclaimerbox {
+        background-color: #eee;
+        border: 1px solid #eeeeee;
+        border-radius: 10px ;
+        -moz-border-radius: 10px ;
+        -webkit-border-radius: 10px ;
+        padding: 20px;
+      }
+      video.header-vid {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px ;
+        -moz-border-radius: 10px ;
+        -webkit-border-radius: 10px ;
+      }
+      img.header-img {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px ;
+        -moz-border-radius: 10px ;
+        -webkit-border-radius: 10px ;
+      }
+      img.rounded {
+        border: 0px solid #eeeeee;
+        border-radius: 10px ;
+        -moz-border-radius: 10px ;
+        -webkit-border-radius: 10px ;
+      }
+      a:link,a:visited
+      {
+        color: #1367a7;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #208799;
+      }
+      td.dl-link {
+        height: 160px;
+        text-align: center;
+        font-size: 22px;
+      }
+
+      .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow:
+                0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+                5px 5px 0 0px #fff, /* The second layer */
+                5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+                10px 10px 0 0px #fff, /* The third layer */
+                10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+                15px 15px 0 0px #fff, /* The fourth layer */
+                15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+                20px 20px 0 0px #fff, /* The fifth layer */
+                20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+                25px 25px 0 0px #fff, /* The fifth layer */
+                25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+        margin-left: 10px;
+        margin-right: 45px;
+      }
+      .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow:
+                0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+                5px 5px 0 0px #fff, /* The second layer */
+                5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+                10px 10px 0 0px #fff, /* The third layer */
+                10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 30px;
+        margin-bottom: 5px;
+      }
+      .vert-cent {
+        position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+      }
+      hr
+      {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+      }
+      #imageContainer {
+        display: none;
+      }
+      #toggleButton {
+        background: none;
+        border: none;
+        font-weight: bold;
+        font-size: 26pt;
+        cursor: pointer;
+        text-decoration: underline;
+        color: darkorchid;
+      }
+      #toggleButton.clicked {
+        color: darkgray; /* Change this to the desired color */
+      }
+    </style>
+
+    <script>
+      function toggleImage() {
+        var imageContainer = document.getElementById("imageContainer");
+        var button = document.getElementById("toggleButton")
+
+        if (imageContainer.style.display === "block") {
+          button.classList.remove("clicked");      
+          imageContainer.style.display = "none";
+          button.innerHTML = "&#x25BC;Click here for more results..."
+        } else {
+          button.classList.add("clicked");
+          imageContainer.style.display = "block";
+          button.innerHTML = "&#x25B2;Click here to hide results..."
+        }
+      }
+    </script>
+    
+    
+    
+        <title>Fast Data Attribution for Text-to-Image Models</title>
+        <meta property="og:image" content="http://peterwang512.github.io/FastGDA/files/teaser.jpg">
+        <meta property="og:title" content="Data Attribution for Text-to-Image Models by Unlearning Synthesized Images">
+      </head>
+    
+      <body>
+            <br>
+              <center>
+                <span style="font-size:32px">Fast Data Attribution for Text-to-Image Models</span><br><br>
+    
+              <table align="center" width="850px">
+                <tbody><tr>
+                        <td align="center" width="205px">
+                  <center>
+                    <span style="font-size:20px"><a href="http://peterwang512.github.io">Sheng-Yu Wang</a><sup>1</sup></span>
+                    </center>
+                    </td>
+                        <td align="center" width="175px">
+                  <center>
+                    <span style="font-size:20px"><a href="https://www.dgp.toronto.edu/~hertzman/">Aaron Hertzmann</a><sup>2</sup></span>
+                    </center>
+                    </td>
+                        <td align="center" width="175px">
+                  <center>
+                    <span style="font-size:20px"><a href="https://people.eecs.berkeley.edu/~efros/">Alexei A. Efros</a><sup>3</sup></span>
+                    </center>
+                    </td>
+                    <td align="center" width="175px">
+                      <center>
+                        <span style="font-size:20px"><a href="http://richzhang.github.io/">Richard Zhang</a><sup>2</sup></span>
+                        </center>
+                        </td>
+                        <td align="center" width="175px">
+                  <center>
+                    <span style="font-size:20px"><a href="http://cs.cmu.edu/~junyanz">Jun-Yan Zhu</a><sup>1</sup></span>
+                    </center>
+                    </td>
+                </tr>
+            </tbody></table>
+    
+              <table align="center" width="700px">
+                <tbody><tr>
+                        <td align="center" width="100px">
+                  <center>
+                        <span style="font-size:20px"></span>
+                    </center>
+                    </td>
+                        <td align="center" width="400px">
+                  <center>
+                        <span style="font-size:20px"><sup>1</sup>Carnegie Mellon University</span>
+                    </center>
+                    </td>
+                        <td align="center" width="250px">
+                  <center>
+                        <span style="font-size:20px"><sup>2</sup>Adobe Research</span>
+                    </center>
+                    </td>
+                        <td align="center" width="250px">
+                  <center>
+                        <span style="font-size:20px"><sup>3</sup>UC Berkeley</span>
+                    </center>
+                    </td>
+                        <td align="center" width="100px">
+                  <center>
+                        <span style="font-size:20px"></span>
+                    </center>
+                    </td>
+            </tr></tbody></table>
+
+    
+              <table align="center" width="500px">
+                <tbody><tr>
+    <!--                     <td align="center" width="50px">
+                  <center>
+                        <span style="font-size:18px"></span>
+                    </center>
+                    </td> -->
+                        <td align="center" width="160px">
+                  <center>
+                    <br>
+                    <span style="font-size:20px"><a href="https://github.com/peterwang512/FastGDA"> [Code]</a></span>
+                    </center>
+                    </td>
+                        <td align="center" width="1000px">
+                  <center>
+                    <br>
+                    <span style="font-size:20px"><a href="https://www.arxiv.org/abs/2511.10721"> <!-- [Paper] -->[Paper (NeurIPS 2025)]</a></span>
+                    </center>
+                    </td>
+                     <!-- <td align="center" width="160px">
+                  <center>
+                    <br>
+                    <span style="font-size:20px"><a href=""> [Slides]</a></span>
+                    </center>
+                    </td> -->
+                     <!-- <td align="center" width="160px">
+                  <center>
+                    <br>
+                    <span style="font-size:20px"><a href="">[Poster]</a></span>
+                    </center>
+                    </td> -->
+
+    
+            </tr></tbody></table>
+                                        <!-- <p> In ArXiv, 2023. </p> -->
+              </center>
+            <br>
+            <table align="center" width="1000px">
+              <tbody><tr>
+                      <td width="400px">
+                <center>
+                    <!-- <video id="teaser_video" width="1024px" loop src="./files/teaser_animated.mp4" autoplay muted>
+                        Your browser does not support HTML5 Player 
+                    </video> -->
+                    <img src="files/teaser.jpg" width="960px">
+                </center>
+                      </td>
+                      </tr>
+                      </tbody></table>
+          <hr>
+    
+            <center><h2>Abstract</h2></center>
+            Data attribution for text-to-image models aims to identify the training images that most significantly influenced a generated output. Existing attribution methods involve considerable computational resources for each query, making them impractical for real-world applications. We propose a novel approach for scalable and efficient data attribution. Our key idea is to distill a slow, unlearning-based attribution method to a feature embedding space for efficient retrieval of highly influential training images. During deployment, combined with efficient indexing and search methods, our method successfully finds highly influential images without running expensive attribution algorithms. We show extensive results on both medium-scale models trained on MSCOCO and large-scale Stable Diffusion models trained on LAION, demonstrating that our method can achieve better or competitive performance in a few seconds, faster than existing methods by 2,500x - 400,000x. Our work represents a meaningful step towards the large-scale application of data attribution methods on real-world models such as Stable Diffusion.
+
+    
+    
+    
+    
+    
+<!--           <br><hr>
+
+        <center><h2>Method</h2></center><table align="center" width="700" px=""> -->
+
+        <br><hr>
+    
+          <center><h2>Results</h2></center>
+    
+    
+<!--            <p><b>Attribution results on MSCOCO models.</b>We show generated samples used as a query on the left, with training images being identified by different methods on the right. Qualitatively, our method retrieves images with more similar visual attributes. Notably, our method better matches the poses of the buses (considering random flips during training) and the poses and enumeration of skiers. Next, we proceed with the counterfactual analysis, where we test whether these attributed images are "truly influential". </p>
+           
+           <center>
+            <img src="./files/coco_attr.jpg" width="1100px">
+            </center>
+    
+
+           <p><b>Counterfactual evaluation by removing influential images.</b> We compare images across our method and baselines generated by leave-K-out models, using different K values, all under the same random noise and text prompt. A significant deviation in regeneration indicates that critical, influential images were identified by the attribution algorithm. While baselines regenerate similar images to the original, our method generates ones that deviate significantly, even with as few as 500 influential images removed (∼0.42% of the dataset).  </p>
+           <center>
+            <img src="./files/coco_leave_k_out.jpg" width="1100px">
+            </center> -->
+
+           <p>
+             <b>Attribution performance vs. throughput (MSCOCO Models).</b>
+             Previous methods (<a href="https://arxiv.org/abs/2406.09408">AbU</a>, <a href="https://arxiv.org/abs/2311.00500" target="_blank">D-TRAK</a>) offer high attribution performance but are computationally expensive for deployment. Fast image similarity using off-the-shelf features (DINO) lacks attribution accuracy. We distill slower attribution methods into a feature space that retains attribution performance while enabling fast deployment.
+           </p>
+           <center>
+            <img src="./files/tradeoff.jpg" width="900px">
+            </center>
+    
+    
+
+        <p><b>Which feature space is good for attribution? (MSCOCO Models)</b> We compare different feature spaces, before and after tuning for attribution. We measure mAP to the ground truth ranking, generated by AbU+. While text-only embeddings perform well before tuning, image-only embeddings become stronger after tuning. Combining both performs best and is our final method.        <center>
+            <img src="./files/feature_space_coco.jpg" width="900px">
+            </center>
+
+            <hr>
+        <p><b>Qualitative results (MSCOCO Models).</b> For each generated image and its text prompt on the left, we show top‐5 training images retrieved by:
+          <i>DINO + CLIP‐Text</i> (top row),
+          <i>Ours</i> (middle row),
+          and the ground‐truth influential examples via <i>AbU+</i> (bottom row).
+          Compared to the untuned baseline, our distilled feature space yields attributions that match the ground‐truth examples more closely. 
+                  <center>
+            <img src="./files/qualitative_coco.jpg" width="1100px">
+            </center>
+
+
+            <hr>
+            <p><b>Results and discussions on Stable Diffuision Models.</b>
+              Below we first show qualitative results for Stable Diffusion models. For each generated image (left), we compare the DINO+CLIP-Text baseline (top row), our calibrated feature ranker (middle row), and AbU+ ground-truth attributions (bottom row). 
+Both AbU+ and our method tend to retrieve images that reflect textual cues rather than visual similarity.             </p>
+            <center>
+              <img src="./files/qualitative_sd.jpg" width="1100px">
+            </center>
+
+              We further verify this phenomenon by checking which feature space predicts attribution results better. In the following figure, while we see similar trends as with MS-COCO, with strongest performing embedding using both text and image features, we find that image-only embeddings perform much worse than text-only embeddings.
+
+              <center>
+                <img src="./files/feature_space_sd.jpg" width="900px">
+              </center>
+
+              It remains challenging to verify whether the "ground‐truth" we collected via AbU+ is accurate or not. Studies by <a href="https://arxiv.org/abs/2205.11482">Akyürek et al.</a> and <a href="https://arxiv.org/abs/2409.19998"> Li et al.</a> suggest that influence‐based methods may weaken on very large models (e.g., LLMs). However, developing more robust attribution algorithms for large‐scale models—and distilling a rank model from stronger teacher methods using our method—are all promising directions ahead.
+
+            <hr>
+            <center><h2>Paper</h2></center><table align="center" width="700" px="https://www.arxiv.org/abs/2511.10721">
+    
+              <tbody><tr>
+              <td><a href="https://www.arxiv.org/abs/2511.10721"><img class="layered-paper-big" style="height:175px" src="./files/firstpg.jpg"></a></td>
+              <td><span style="font-size:12pt">Sheng-Yu Wang, Aaron Hertzmann, Alexei A. Efros, Richard Zhang, Jun-Yan Zhu.</span><br>
+              <b><span style="font-size:12pt">Data Attribution for Text-to-Image Models by Unlearning Synthesized Images.</span></b><br>
+              <span style="font-size:12pt">In NeurIPS, 2025. (<a href="https://www.arxiv.org/abs/2511.10721">Paper</a>)</span>
+              </td>
+    
+              <br>
+              <table align="center" width="600px">
+                <tbody>
+                  <tr>
+                    <td>
+                      <center>
+                        <span style="font-size:22px">
+                          <a href="./files/bibtex.txt" target="_blank">[Bibtex]</a>
+                        </span>
+                      </center>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          <br>
+
+
+<!--     <br><hr>
+    <table align="center" width="1000px">
+      <tbody><tr>
+              <td width="400px">
+        <left>
+      <center><h2>Related works</h2></center>
+    </left>
+    <p><b>Data attribution for classifiers:</b></p>
+    <ul>
+      <li>Sung Min Park, Kristian Georgiev, Andrew Ilyas, Guillaume Leclerc, and Aleksander Madry. <a href="https://arxiv.org/abs/2303.14186">"TRAK: Attributing Model Behavior at Scale."</a>. In ArXiv 2023.</li><br>
+      <li>Vitaly Feldman and Chiyuan Zhang. <a href="https://arxiv.org/abs/2008.03703">"What Neural Networks Memorize and Why: Discovering the Long Tail via Influence Estimation."</a>. In NeurIPS 2020.</li><br>
+      <li>Pang Wei Koh and Percy Liang. <a href="https://arxiv.org/abs/1703.04730">"Understanding Black-box Predictions via Influence Functions."</a>. In ICML 2017.</li><br>
+    </ul>
+
+    </td>
+    </tr>
+    </tbody></table> -->
+
+
+
+    
+    
+          <br><hr>
+    
+            <table align="center" width="1100px">
+              <tbody><tr>
+                      <td width="400px">
+                <left>
+              <center><h2>Acknowledgements</h2></center>
+              We thank Simon Niklaus for the help on the LAION image retrieval. We thank Ruihan Gao, Maxwell Jones, and Gaurav Parmar for helpful discussions and feedback on drafts. Sheng-Yu Wang is supported by the Google PhD Fellowship. The project was partly supported by Adobe Inc., the Packard Fellowship, the IITP grant funded by the Korean Government (MSIT) (No. RS-2024-00457882, National AI Research Lab Project), NSF IIS-2239076, and NSF ISS-2403303.          </left>
+        </td>
+           </tr>
+        </tbody></table>
+    
+        <br>
+
+        <hr>
+        <center><h2>Citation</h2></center>
+
+            <code style="display:block; background:#D3D3D3;">
+                @inproceedings{wang2025fastgda,<br>
+                &nbsp; title={Fast Data Attribution for Text-to-Image Models},<br>
+                &nbsp; author={Wang, Sheng-Yu and Hertzmann, Aaron and Efros, Alexei A and Zhang, Richard and Zhu, Jun-Yan},<br>
+                &nbsp; booktitle={NeurIPS},<br>
+                &nbsp; year = {2025},<br>
+                &nbsp; }</code>
+        <br>
+
+
+	<!-- Google tag (gtag.js)
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-L56W4JWSEP"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-L56W4JWSEP');
+	</script> -->
+    
+    </body></html>

@@ -1,0 +1,6 @@
+@inproceedings{wang2025fastgda,
+  title={Fast Data Attribution for Text-to-Image Models},
+  author={Wang, Sheng-Yu and Hertzmann, Aaron and Efros, Alexei A and Zhang, Richard and Zhu, Jun-Yan},
+  booktitle={NeurIPS},
+  year = {2025},
+}
